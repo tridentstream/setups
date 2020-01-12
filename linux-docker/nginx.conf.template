@@ -1,0 +1,39 @@
+upstream tridentstream {
+    server tridentstream:45477;
+}
+
+upstream deluge {
+    server deluge:46123;
+}
+
+upstream deluge_web {
+    server deluge:8112;
+}
+
+server {
+    listen       80;
+    server_name  localhost;
+
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+
+    location /_deluge/ {
+        proxy_pass http://deluge/;
+    }
+
+    location /_deluge_web/ {
+        proxy_pass http://deluge_web/;
+        proxy_set_header X-Deluge-Base "/_deluge_web/";
+    }
+
+    location / {
+        proxy_pass http://tridentstream;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_set_header Host            $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+    }
+}

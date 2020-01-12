@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:12
+    restart: unless-stopped
+    networks:
+      - tridentstream
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=tridentstream
+  cache:
+    image: memcached:1.5
+    restart: unless-stopped
+    networks:
+      - tridentstream
+    command: memcached -I 64M -m 256M
+  tridentstream:
+    image: tridentstream/mediaserver:latest
+    restart: unless-stopped
+    command: ["/wait-for-it.sh", "db:5432", "--", "/bootstrap-and-execute.sh", "-s"]
+    environment:
+      - CACHE_URL=memcache://cache:11211
+      - SECRET_KEY=${SECRET_KEY}
+      - MEDIA_ROOT=/tridentstream/media/
+      - INSTALLED_APPS=${INSTALLED_APPS}
+      - DATABASE_ROOT=/tridentstream/dbs/
+      - DATABASE_URL=postgres://tridentstream:${POSTGRES_PASSWORD}@db/tridentstream
+    depends_on:
+      - db
+    networks:
+      - tridentstream
+    volumes:
+      - ./tridentstream/:/tridentstream
+  web:
+    image: nginx:1.17
+    restart: unless-stopped
+    volumes:
+    - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - tridentstream
+    networks:
+      - tridentstream
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.tridentstream.rule=Host(`${EXTERNAL_HOST}`)"
+      - "traefik.http.routers.tridentstream.tls=true"
+      - "traefik.http.routers.tridentstream.tls.certresolver=letsencrypt"
+      - "traefik.port=80"
+
+networks:
+  web:
+    external: true
+  tridentstream:

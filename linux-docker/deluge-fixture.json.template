@@ -1,0 +1,14 @@
+[
+  {
+    "fields": {
+      "enabled": true,
+      "config": "{\"url\": \"http://deluge:46123/streaming/stream\", \"username\": \"tridentstream\", \"password\": \"${DELUGE_PASSWORD}\", \"label\": \"\"}",
+      "name": "deluge",
+      "plugin_name": "deluge",
+      "plugin_type": "bittorrentclient",
+      "last_update": "2019-01-01T00:00:00.000Z"
+    },
+    "model": "unplugged.plugin",
+    "pk": 100
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "file": 1,
+  "format": 1
+}{
+  "ssl_source": "daemon",
+  "auto_open_stream_urls": false,
+  "reverse_proxy_base_url": "http://${EXTERNAL_HOST}/_deluge/",
+  "serve_method": "standalone",
+  "download_only_streamed": false,
+  "remote_password": "${DELUGE_PASSWORD}",
+  "use_ssl": false,
+  "port": 46123,
+  "ssl_cert_path": "",
+  "allow_remote": true,
+  "remote_username": "tridentstream",
+  "use_stream_urls": false,
+  "ip": "0.0.0.0",
+  "reverse_proxy_enabled": true,
+  "ssl_priv_key_path": "",
+  "download_in_order": true
+}

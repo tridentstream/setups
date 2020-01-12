@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  deluge:
+    image: linuxserver/deluge:2.0.3-2201906121747ubuntu18.04.1-ls46
+    restart: unless-stopped
+    volumes:
+    - ./deluge:/config
+    - ./enable-deluge-streaming:/etc/cont-init.d/40-enable-deluge-streaming:ro
+    - ./deluge-downloads:/root/Downloads
+    networks:
+      - tridentstream
+    ports:
+      - "40335"
+    environment:
+      - DELUGE_BITTORRENT_PORT=40335
+

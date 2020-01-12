@@ -1,0 +1,9 @@
+#!/usr/bin/with-contenv bash
+
+chown abc:abc /root/
+(sleep 10; deluge-console -c /config/ "plugin -e Streaming") &
+(sleep 10; deluge-console -c /config/ "config --set random_port false") &
+(sleep 10; deluge-console -c /config/ "config --set listen_ports (${DELUGE_BITTORRENT_PORT}, ${DELUGE_BITTORRENT_PORT})") &
+(sleep 12; deluge-console -c /config/ "plugin -e WebUi") &
+
+#(sleep 11; deluge-console -c /config/ "config --set download_location /downloads") &
