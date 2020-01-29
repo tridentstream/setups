@@ -14,7 +14,7 @@ install the required build tools: https://github.com/pyenv/pyenv/wiki/common-bui
 Installation
 ---------------------------------
 
-curl https://github.com/tridentstream/setups/raw/master/linux-user/bootstrap.sh | bash
+curl -L https://github.com/tridentstream/setups/raw/master/linux-user/bootstrap.sh | bash
 
 Plugins
 ---------------------------------
