@@ -14,21 +14,23 @@ install the required build tools: https://github.com/pyenv/pyenv/wiki/common-bui
 Installation
 ---------------------------------
 
-curl -L https://github.com/tridentstream/setups/raw/master/linux-user/bootstrap.sh | bash
+.. code-block:: bash
+
+    curl -L https://github.com/tridentstream/setups/raw/master/linux-user/bootstrap.sh | bash
 
 Plugins
 ---------------------------------
 
-To install plugins, put the plugin installation package into tridentstream/packages, edit .environ and add its name to INSTALLED_APPS.
+To install plugins, put the plugin installation package into `tridentstream/packages`, edit `.environ` and add its name to `INSTALLED_APPS`.
 
 Configuration
 ---------------------------------
 
-Configurable options can be found in the .environ file and at the top of start.sh.
+Configurable options can be found in the .environ file and at the top of `start.sh`.
 
-Settings are reloaded by running ./restart.sh.
+Settings are reloaded by running `./restart.sh`.
 
-If you want to enable SSL or change port, modify start.sh.
+If you want to enable SSL or change port, modify `./start.sh`.
 
 License
 ---------------------------------
