@@ -84,6 +84,9 @@ EOF
 
 install_pyenv() {
     curl https://pyenv.run | bash
+}
+
+activate_pyenv() {
     PATH="${pyenv_root}/bin:${PATH}"
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
@@ -111,7 +114,7 @@ setup_postgres() {
 }
 
 install_tridentstream() {
-    pyenv install 3.7.6
+    pyenv install -s 3.7.6
     if ! pyenv activate tridentstream ; then
         pyenv virtualenv 3.7.6 tridentstream
         pyenv activate tridentstream
@@ -176,6 +179,7 @@ main() {
     if ! [ -x "$(command -v pyenv)" ]; then
         install_pyenv
     fi
+    activate_pyenv
 
     install_tridentstream
     setup_tridentstream
