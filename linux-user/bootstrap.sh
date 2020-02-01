@@ -12,7 +12,7 @@ pyenv_root="${HOME}/.pyenv"
 read -r -d '' start_sh <<"EOF"
 #!/usr/bin/env bash
 
-PORT=45477
+PORT=%LISTEN_PORT%
 HOST=0.0.0.0
 PRIVATE_KEY=
 CERT_KEY=
@@ -143,6 +143,7 @@ write_start_sh() {
     body=start_sh
     body="${start_sh}"
     body="${body/\%POSTGRES_PATH\%/$POSTGRES_PATH}"
+    body="${body/\%LISTEN_PORT\%/$random_available_port}"
     body="${body/\%pyenv_root\%/$pyenv_root}"
     echo "$body" > start.sh
     chmod +x start.sh
@@ -175,6 +176,23 @@ check_config() {
     fi
 }
 
+find_port() {
+    read lower_port upper_port < /proc/sys/net/ipv4/ip_local_port_range
+    random_available_port=`comm -23 \
+      <(seq "$lower_port" "$upper_port" | sort) \
+      <(ss -tan | awk '{print $4}' | cut -d':' -f2 | grep '[0-9]\{1,5\}' | sort -u) \
+      | shuf | head -n 1`
+}
+
+find_external_ip() {
+    external_ip=`host myip.opendns.com resolver1.opendns.com | awk '/has address/ { print $4 }'`
+}
+
+find_local_ip() {
+    internal_ip=`ip route get 1 | sed -n 's/^.*src \([0-9.]*\) .*$/\1/p'`
+}
+
+
 main() {
     if ! [ -x "$(command -v pyenv)" ]; then
         install_pyenv
@@ -194,6 +212,10 @@ main() {
         create_environ
     fi
 
+    find_port
+    find_external_ip
+    find_local_ip
+
     write_start_sh
     write_stop_sh
     write_restart_sh
@@ -203,7 +225,21 @@ main() {
     echo "  cd tridentstream"
     echo "  ./start.sh"
     echo ""
-    echo "After Tridentstream is started, head over to https://<ip>:45477/ and login for the first time"
+
+    last_line="After Tridentstream is started, head over to"
+    if [ ! -z "$external_ip" ]; then
+        last_line="${last_line} http://${external_ip}:${random_available_port}/"
+        if [ ! -z "$internal_ip" ] && [ "$external_ip" != "$internal_ip" ]; then
+            last_line="${last_line} or http://${internal_ip}:${random_available_port}/"
+        fi
+    elif [ ! -z "$internal_ip" ]; then
+        last_line="${last_line} http://${internal_ip}:${random_available_port}/"
+    else
+        last_line="${last_line} http://<ip>:${random_available_port}/"
+    fi
+    last_line="${last_line} and login for the first time"
+    echo $last_line
+    #echo "After Tridentstream is started, head over to http://${external_ip}:${random_available_port}/ or http://${internal_ip}:${random_available_port}/ and login for the first time"
 }
 
 POSTGRES_PATH=
