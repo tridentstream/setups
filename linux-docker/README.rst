@@ -25,15 +25,15 @@ If you do not already have docker and docker-compose installed, do this:
         ca-certificates \
         curl \
         gnupg-agent \
-        software-properties-common -y
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+        software-properties-common -y && \
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \
     add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) \
-      stable"
-    apt-get install docker-ce docker-ce-cli containerd.io -y
-    curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-    chmod +x /usr/local/bin/docker-compose
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) \
+    stable" && \
+    apt-get install docker-ce docker-ce-cli containerd.io -y && \
+    curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && \
+    chmod +x /usr/local/bin/docker-compose && \
     ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 
@@ -57,11 +57,11 @@ It's easy to get going and is already included.
 
 .. code-block:: bash
 
-    docker network create web
-    cd traefik
-    touch acme.json
-    chmod 600 acme.json
-    docker-compose up -d
+    docker network create web && \
+    cd traefik && \
+    touch acme.json && \
+    chmod 600 acme.json && \
+    docker-compose up -d && \
     cd ..
 
 Time to get Tridentstream bootstrapped.
