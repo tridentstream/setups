@@ -28,7 +28,12 @@ create_env() {
 }
 
 setup_templates() {
-    envsubst "" < nginx.conf.template > nginx.conf
+    if [ "$use_deluge" -eq "1" ]; then
+        local template_name=nginx-deluge.conf.template
+    else
+        local template_name=nginx.conf.template
+    fi
+    envsubst "" < $template_name > nginx.conf
 }
 
 usage() {
