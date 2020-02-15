@@ -29,6 +29,8 @@ Cons:
 * Requires root
 * Can be harder to customize
 
+`Click here to open guide <https://github.com/tridentstream/setups/tree/master/linux-docker>`__
+
 
 Installer linux-user
 ````````````````````````````````
@@ -45,6 +47,7 @@ Cons:
 * Have to configure SSL manually
 * Listens on a weird port
 
+`Click here to open guide <https://github.com/tridentstream/setups/tree/master/linux-user>`__
 
 License
 ---------------------------------
