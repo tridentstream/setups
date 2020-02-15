@@ -71,7 +71,7 @@ Time to get Tridentstream bootstrapped.
     # If you do not need to use built-in deluge, skip -d
     ./bootstrap.sh -d -o your-domain.com
 
-Follow the on-screen instructions and read the `Setting Up`_ section.
+Follow the on-screen instructions and read the Setting Up section in the `main README <https://github.com/tridentstream/mediaserver>`_.
 
 Please note, if you do not use traefik as prescribed, then you will need to modify docker-compose.yml to fit your needs.
 
