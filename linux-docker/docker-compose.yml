@@ -26,6 +26,7 @@ services:
       - INSTALLED_APPS=${INSTALLED_APPS}
       - DATABASE_ROOT=/tridentstream/dbs/
       - DATABASE_URL=postgres://tridentstream:${POSTGRES_PASSWORD}@db/tridentstream
+      - PACKAGE_ROOT=/tridentstream/packages/
     depends_on:
       - db
     networks:

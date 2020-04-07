@@ -2,8 +2,8 @@
 Docker installer
 ================================================
 
-Install Tridentstream Media Server as a normal user on a (potentially shared)
-server running linux.
+This guide explains how to get Tridentstream Media Server up and running
+on a server where you have access to Docker.
 
 .. contents::
 
