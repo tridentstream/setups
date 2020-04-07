@@ -40,17 +40,14 @@ If you do not already have docker and docker-compose installed, do this:
 Installation
 ---------------------------------
 
-To get started, clone the setups repository
+To get started, download and unzip the config file bundle
 
 .. code-block:: bash
 
-    git clone --depth 1 https://github.com/tridentstream/setups
-
-Head into the linux-docker folder
-
-.. code-block:: bash
-
-    cd setups/linux-docker
+    curl -L -o bundle.zip https://github.com/tridentstream/setups/raw/master/linux-docker/bundle.zip && \
+    unzip bundle.zip -d tridentstream && \
+    rm bundle.zip && \
+    cd tridentstream
 
 OPTIONAL: If you do not have your own webserver to be infront of the Tridentstream instance, then traefik is recommended.
 It's easy to get going and is already included.
@@ -71,14 +68,17 @@ Time to get Tridentstream bootstrapped.
     # If you do not need to use built-in deluge, skip -d
     ./bootstrap.sh -d -o your-domain.com
 
-Follow the on-screen instructions and read the Setting Up section in the `main README <https://github.com/tridentstream/mediaserver>`_.
-
 Please note, if you do not use traefik as prescribed, then you will need to modify docker-compose.yml to fit your needs.
 
-Plugins
----------------------------------
+When Tridentstream is bootstrapped, it can be started by executing start.sh.
 
-To install plugins, put the plugin installation package into tridentstream/packages, edit .env and add its name to INSTALLED_APPS.
+.. code-block:: bash
+
+    ./start.sh
+
+If you decided to include Deluge, it is now available at: https://your-domain.com/_deluge/
+It is strongly recommended that you change the default password.
+
 
 License
 ---------------------------------
