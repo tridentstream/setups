@@ -18,11 +18,6 @@ Installation
 
     curl -L https://github.com/tridentstream/setups/raw/master/linux-user/bootstrap.sh | bash
 
-Plugins
----------------------------------
-
-To install plugins, put the plugin installation package into `tridentstream/packages`, edit `.environ` and add its name to `INSTALLED_APPS`.
-
 Configuration
 ---------------------------------
 
