@@ -5,7 +5,7 @@ install_deluge() {
     chown 911:911 deluge-downloads
     mkdir -p deluge/plugins
     if [ ! -f deluge/plugins/Streaming-0.11.0-py3.6.egg ]; then
-        wget -P deluge/plugins https://github.com/JohnDoee/deluge-streaming/releases/download/0.11.0/Streaming-0.11.0-py3.6.egg
+        wget -P deluge/plugins https://github.com/JohnDoee/deluge-streaming/releases/download/0.11.0/Streaming-0.11.0.egg
     fi
 
     envsubst "\$EXTERNAL_HOST,\$DELUGE_PASSWORD" < streaming.conf.template > deluge/streaming.conf
